@@ -2,7 +2,7 @@
 
 ## _Aggregated data is more informative, isn't it?_
 
-Resume: Today you will see how to use specific OLAP constructions to get a “Value” from data
+Resume: Today you will see how to use specific OLAP constructions to get a "Value" from data.
 
 ## Contents
 
@@ -38,13 +38,13 @@ Resume: Today you will see how to use specific OLAP constructions to get a “Va
 
 ![D07_01](misc/images/D07_01.png)
 
-Please take a look at Curve of Usefulness for detailed data in time. Other words, detailed data (means user transactions, facts about products and providers, etc.) are not useful for us from a historical perspective, because we just need to know  some aggregation to describe what was going on a year ago.
+For detailed data over time, see the Curve of Usefulness. In other words, detailed data (i.e. user transactions, facts about products and providers, etc.) is not useful to us from a historical perspective, because we only need to know some aggregation to describe what was going on a year ago.
 
-Why does it happen? The reason is in our analytical mind. Actually we want to concentrate on our business strategy from a historical perspective to set new business goals and we don’t need details. 
+Why is this happening? The reason lies in our analytical mind. Actually, we want to focus on our business strategy from a historical perspective to set new business goals, and we don't need the details. 
 
-From a database point of view, “Analytical mind” corresponds to OLAP  traffic (information layer), “details” corresponds to OLTP traffic (raw data layer). Today there is a more flexible pattern to store detailed data and aggregated information in the ecosystem. I am talking about `LakeHouse = DataLake + DataWareHouse`.
+From a database point of view, "Analytical mind" corresponds to OLAP traffic (information layer), "details" corresponds to OLTP traffic (raw data layer). Today, there is a more flexible pattern for storing detailed data and aggregated information in the ecosystem. I am talking about `LakeHouse = DataLake + DataWareHouse`.
 
-If we are talking about historical data then we should mention the “Data lifecycle management” pattern. Simple words, what should we do with old data? TTL (time-to-live), SLA for data, Retention Data Policy, etc. are terms that are in use in Data Governance strategy.
+If we are talking about historical data, then we should mention the "Data Lifecycle Management" pattern. In simple words, what should we do with old data? TTL (time-to-live), SLA for data, Retention Data Policy, etc. are terms used in Data Governance strategy.
 
 ![D07_02](misc/images/D07_02.png)
 
@@ -53,23 +53,23 @@ If we are talking about historical data then we should mention the “Data lifec
 ## Chapter II
 ## General Rules
 
-- Use this page as the only reference. Do not listen to any rumors and speculations on how to prepare your solution.
-- Please make sure you are using the latest version of PostgreSQL.
-- That is completely OK if you are using IDE to write a source code (aka SQL script).
-- To be assessed your solution must be in your GIT repository.
-- Your solutions will be evaluated by your piscine mates.
-- You should not leave in your directory any other file than those explicitly specified by the exercise instructions. It is recommended that you modify your `.gitignore` to avoid accidents.
-- Do you have a question? Ask your neighbor on the right. Otherwise, try with your neighbor on the left.
+- Use this page as your only reference. Do not listen to rumors and speculations about how to prepare your solution.
+- Make sure you are using the latest version of PostgreSQL.
+- It is perfectly fine if you use the IDE to write source code (aka SQL script).
+- To be evaluated, your solution must be in your GIT repository.
+- Your solutions will be evaluated by your peers.
+- You should not leave any files in your directory other than those explicitly specified by the exercise instructions. It is recommended that you modify your `.gitignore` to avoid accidents.
+- Got a question? Ask your neighbor to the right. Otherwise, try your neighbor on the left.
 - Your reference manual: mates / Internet / Google. 
-- Read the examples carefully. They may require things that are not otherwise specified in the subject.
+- Read the examples carefully. You may need things not specified in the topic.
 - And may the SQL-Force be with you!
-- Absolutely everything can be presented in SQL! Let’s start and have fun!
+Absolutely anything can be represented in SQL! Let's get started and have fun!
 
 ## Chapter III
 ## Rules of the day
 
-- Please make sure you have an own database and access for it on your PostgreSQL cluster. 
-- Please download a [script](materials/model.sql) with Database Model here and apply the script to your database (you can use command line with psql or just run it through any IDE, for example DataGrip from JetBrains or pgAdmin from PostgreSQL community). **Our knowledge way is incremental and linear therefore please be aware all changes that you made in Day03 during exercises 07-13 and in Day04 during exercise 07 should be on place (its similar like in real world , when we applied a release and need to be consistency with data for new changes).**
+- Please make sure you have your own database and access to it on your PostgreSQL cluster. 
+- Please download a [script](materials/model.sql) with Database Model here and apply the script to your database (you can use command line with psql or just run it through any IDE, for example DataGrip from JetBrains or pgAdmin from PostgreSQL community). **Our knowledge way is incremental and linear therefore please be aware all changes that you made in Day03 during Exercises 07-13 and in Day04 during Exercise 07 should be on place (its similar like in real world , when we applied a release and need to be consistency with data for new changes).**
 - All tasks contain a list of Allowed and Denied sections with listed database options, database types, SQL constructions etc. Please have a look at the section before you start.
 - Please take a look at the Logical View of our Database Model. 
 
@@ -102,7 +102,7 @@ If we are talking about historical data then we should mention the “Data lifec
 - field menu_id - foreign key to menu
 - field order_date - date (for example 2022-01-01) of person order 
 
-Persons' visit and persons' order are different entities and don't contain any correlation between data. For example, a client can be in one restaurant (just looking at menu) and in this time make an order in different one by phone or by mobile application. Or another case,  just be at home and again make a call with order without any visits.
+People's visit and people's order are different entities and don't contain any correlation between data. For example, a customer can be in a restaurant (just looking at the menu) and at the same time place an order in another restaurant by phone or mobile application. Or another case, just be at home and again make a call with order without any visits.
 
 
 ## Chapter IV
@@ -115,7 +115,7 @@ Persons' visit and persons' order are different entities and don't contain any c
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL|
 
-Let’s make a simple aggregation, please write a SQL statement that returns person identifiers and corresponding number of visits in any pizzerias and sorting by count of visits in descending mode and sorting in `person_id` in ascending mode. Please take a look at the sample of data below.
+Let's make a simple aggregation, please write a SQL statement that returns person identifiers and corresponding number of visits in any pizzerias and sorts by number of visits in descending mode and sorts by `person_id` in ascending mode. Please take a look at the sample of data below.
 
 | person_id | count_of_visits |
 | ------ | ------ |
@@ -134,7 +134,7 @@ Let’s make a simple aggregation, please write a SQL statement that returns per
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please change a SQL statement from Exercise 00 and return a person name (not identifier). Additional clause is  we need to see only top-4 persons with maximal visits in any pizzerias and sorted by a person name. Please take a look at the example of output data below.
+Please modify an SQL statement from Exercise 00 and return a person name (not an identifier). Additional clause is we need to see only top 4 people with maximum visits in each pizzerias and sorted by a person name. See the example of output data below.
 
 | name | count_of_visits |
 | ------ | ------ |
@@ -154,7 +154,7 @@ Please change a SQL statement from Exercise 00 and return a person name (not ide
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please write a SQL statement to see 3 favorite restaurants by visits and by orders in one list (please add an action_type column with values ‘order’ or ‘visit’, it depends on data from the corresponding table). Please take a look at the sample of data below. The result should be sorted by action_type column in ascending mode and by count column in descending mode.
+Please write a SQL statement to see 3 favorite restaurants by visits and by orders in a list (please add an action_type column with values 'order' or 'visit', it depends on the data from the corresponding table). Please have a look at the example data below. The result should be sorted in ascending order by the action_type column and in descending order by the count column.
 
 | name | count | action_type |
 | ------ | ------ | ------ |
@@ -173,13 +173,13 @@ Please write a SQL statement to see 3 favorite restaurants by visits and by orde
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please write a SQL statement to see restaurants are grouping by visits and by orders and joined with each other by using restaurant name.  
-You can use internal SQLs from Exercise 02 (restaurants by visits and by orders) without limitations of amount of rows.
+Write an SQL statement to see how restaurants are grouped by visits and by orders, and joined together by restaurant name.  
+You can use the internal SQL from Exercise 02 (Restaurants by Visits and by Orders) without any restrictions on the number of rows.
 
-Additionally, please add the next rules.
-- calculate a sum of orders and visits for corresponding pizzeria (be aware, not all pizzeria keys are presented in both tables).
-- sort results by `total_count` column in descending mode and by `name` in ascending mode.
-Take a look at the data sample below.
+In addition, add the following rules.
+- Compute a sum of orders and visits for the corresponding pizzeria (note that not all pizzeria keys are represented in both tables).
+- Sort the results by the `total_count` column in descending order and by the `name` column in ascending order.
+Take a look at the example data below.
 
 | name | total_count |
 | ------ | ------ |
@@ -201,7 +201,7 @@ Take a look at the data sample below.
 | **Denied**                               |                                                                                                                          |
 | Syntax construction                        | `WHERE`                                                                                              |
 
-Please write a SQL statement that returns the person name and corresponding number of visits in any pizzerias if the person has visited more than 3 times (> 3).Please take a look at the sample of data below.
+Please write a SQL statement that returns the person's name and the corresponding number of visits to any pizzerias if the person has visited more than 3 times (> 3). Please take a look at the sample data below.
 
 | name | count_of_visits |
 | ------ | ------ |
@@ -222,7 +222,7 @@ Please write a SQL statement that returns the person name and corresponding numb
 | **Denied**                               |                                                                                                                          |
 | Syntax construction                        |  `GROUP BY`, any type (`UNION`,...) working with sets                                                                                              |
 
-Please write a simple SQL query that returns a list of unique person names who made orders in any pizzerias. The result should be sorted by person name. Please take a look at the sample below.
+Please write a simple SQL query that returns a list of unique person names who have placed orders at any pizzerias. The result should be sorted by person name. Please see the example below.
 
 | name | 
 | ------ |
@@ -241,8 +241,8 @@ Please write a simple SQL query that returns a list of unique person names who m
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please write a SQL statement that returns the amount of orders, average of price, maximum and minimum prices for sold pizza by corresponding pizzeria restaurant. The result should be sorted by pizzeria name. Please take a look at the data sample below. 
-Round your average price to 2 floating numbers.
+Please write a SQL statement that returns the number of orders, the average price, the maximum price and the minimum price for pizzas sold by each pizzeria restaurant. The result should be sorted by pizzeria name. See the sample data below. 
+Round the average price to 2 floating numbers.
 
 | name | count_of_orders | average_price | max_price | min_price |
 | ------ | ------ | ------ | ------ | ------ |
@@ -262,7 +262,7 @@ Round your average price to 2 floating numbers.
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please write a SQL statement that returns a common average rating (the output attribute name is global_rating) for all restaurants. Round your average rating to 4 floating numbers.
+Write an SQL statement that returns a common average rating (the output attribute name is global_rating) for all restaurants. Round your average rating to 4 floating point numbers.
 
 
 ## Chapter XII
@@ -276,7 +276,7 @@ Please write a SQL statement that returns a common average rating (the output at
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-We know about personal addresses from our data. Let’s imagine, that particular person visits pizzerias in his/her city only. Please write a SQL statement that returns address, pizzeria name and amount of persons’ orders. The result should be sorted by address and then by restaurant name. Please take a look at the sample of output data below.
+We know personal addresses from our data. Let's assume that this person only visits pizzerias in his city. Write a SQL statement that returns the address, the name of the pizzeria, and the amount of the person's orders. The result should be sorted by address and then by restaurant name. Please take a look at the sample output data below.
 
 | address | name |count_of_orders |
 | ------ | ------ |------ |
@@ -296,9 +296,9 @@ We know about personal addresses from our data. Let’s imagine, that particular
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please write a SQL statement that returns aggregated information by person’s address , the result of “Maximal Age - (Minimal Age  / Maximal Age)” that is presented as a formula column, next one is average age per address and the result of comparison between formula and average columns (other words, if formula is greater than  average then True, otherwise False value).
+Please write a SQL statement that returns aggregated information by person's address, the result of "Maximum Age - (Minimum Age / Maximum Age)" presented as a formula column, next is average age per address and the result of comparison between formula and average columns (in other words, if formula is greater than average, then True, otherwise False value).
 
-The result should be sorted by address column. Please take a look at the sample of output data below.
+The result should be sorted by address column. Please take a look at the example of output data below.
 
 | address | formula |average | comparison |
 | ------ | ------ |------ |------ |
